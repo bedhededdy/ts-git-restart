@@ -9,9 +9,8 @@
       /* Language and Environment */
 
       /* Modules */
-      "baseUrl": ".",                                      /* Specify the base directory to resolve non-relative module names. */
-      "paths": { "@/*": ["src/*"] },                       /* Specify a set of entries that re-map imports to additional lookup locations. */
       "rootDir": "./src",
+      "baseUrl": "./src",
 
       /* JavaScript Support */
 
@@ -34,7 +33,7 @@
       // "newLine": "lf",                                  /* Set the newline character for emitting files. */
       // "stripInternal": true,                            /* Disable emitting declarations that have '@internal' in their JSDoc comments. */
       // "noEmitHelpers": true,                            /* Disable generating custom helper functions like '__extends' in compiled output. */
-      // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+      "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
       // "preserveConstEnums": true,                       /* Disable erasing 'const enum' declarations in generated code. */
       // "declarationDir": "",                             /* Specify the output directory for generated declaration files. */
 

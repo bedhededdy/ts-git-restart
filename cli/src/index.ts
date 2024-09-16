@@ -1,3 +1,4 @@
-import foo from "tsgit-core";
+import foo, { bar } from "tsgit-core";
 
-foo();
+console.log(foo());
+console.log(bar());

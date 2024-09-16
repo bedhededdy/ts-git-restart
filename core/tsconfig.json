@@ -8,8 +8,7 @@
     /* Language and Environment */
 
     /* Modules */
-    "baseUrl": ".",                                      /* Specify the base directory to resolve non-relative module names. */
-    "paths": { "@/*": ["src/*"] },                       /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "baseUrl": "./src",
     "rootDir": ".",
 
     /* JavaScript Support */
@@ -47,5 +46,5 @@
     "require": ["tsconfig-paths/register"],
   },
   "include": ["src/**/*", "__tests__/**/*"],
-  "exclude": ["node_modules", "dist", "full-build"],
+  "exclude": ["node_modules", "dist", "build"],
 }

@@ -3,7 +3,7 @@ import pluginJs from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-// import jest from "eslint-plugin-jest";
+import jest from "eslint-plugin-jest";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,7 +19,7 @@ export default [
   includeIgnoreFile(gitIgnorePath),
   { files: ["**/*.ts"] },
   // For whatever reason this errors when running eslint
-  // { ignorePattern: "eslint.config.mjs" },
+  { ignores: ["eslint.config.mjs", "**/*.js"] },
   {
     languageOptions: {
       globals: globals.browser,
@@ -106,38 +106,38 @@ export default [
       ],
     },
   },
-  // {
-  //   files: ["__test__/**"],
-  //   ...jest.configs["flat/recommended"],
-  //   ...jest.configs["flat/style"],
-  //   rules: {
-  //     ...jest.configs["flat/recommended"].rules,
-  //     "jest/consistent-test-it": "error",
-  //     "jest/expect-expect": "error",
-  //     "jest/no-confusing-set-timeout": "error",
-  //     "jest/no-disabled-tests": "error",
-  //     "jest/no-duplicate-hooks": "warn",
-  //     "jest/no-large-snapshots": "warn",
-  //     "jest/no-test-return-statement": "error",
-  //     "jest/padding-around-all": "warn",
-  //     "jest/prefer-called-with": "error",
-  //     "jest/prefer-comparison-matcher": "warn",
-  //     "jest/prefer-each": "warn",
-  //     "jest/prefer-equality-matcher": "warn",
-  //     "jest/prefer-expect-assertions": "warn",
-  //     "jest/prefer-expect-resolves": "warn",
-  //     "jest/prefer-hooks-on-top": "error",
-  //     "jest/prefer-hooks-in-order": "error",
-  //     "jest/prefer-spy-on": "warn",
-  //     "jest/prefer-to-be": "warn",
-  //     "jest/prefer-to-contain": "warn",
-  //     "jest/prefer-to-have-length": "warn",
-  //     "jest/require-to-throw-message": "error",
-  //     "jest/require-top-level-describe": "error",
-  //   },
-  //   env: {
-  //     "jest/globals": true
-  //   }
+  {
+    files: ["__test__/**"],
+    ...jest.configs["flat/recommended"],
+    ...jest.configs["flat/style"],
+    rules: {
+      ...jest.configs["flat/recommended"].rules,
+      "jest/consistent-test-it": "error",
+      "jest/expect-expect": "error",
+      "jest/no-confusing-set-timeout": "error",
+      "jest/no-disabled-tests": "error",
+      "jest/no-duplicate-hooks": "warn",
+      "jest/no-large-snapshots": "warn",
+      "jest/no-test-return-statement": "error",
+      "jest/padding-around-all": "warn",
+      "jest/prefer-called-with": "error",
+      "jest/prefer-comparison-matcher": "warn",
+      "jest/prefer-each": "warn",
+      "jest/prefer-equality-matcher": "warn",
+      "jest/prefer-expect-assertions": "warn",
+      "jest/prefer-expect-resolves": "warn",
+      "jest/prefer-hooks-on-top": "error",
+      "jest/prefer-hooks-in-order": "error",
+      "jest/prefer-spy-on": "warn",
+      "jest/prefer-to-be": "warn",
+      "jest/prefer-to-contain": "warn",
+      "jest/prefer-to-have-length": "warn",
+      "jest/require-to-throw-message": "error",
+      "jest/require-top-level-describe": "error",
+    },
+    env: {
+      "jest/globals": true
+    }
 
-  // },
+  },
 ];

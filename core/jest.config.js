@@ -95,12 +95,14 @@ const config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: {
-    "@/(.*)": "<rootDir>/src/$1",
-  },
+  // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
+
+  //*ECP TODO: SHOULD THIS BE DONE WTIH MODULENAMEMAPPER?
+               // THIS OPTION DOESN'T APPEAR INT HE CONFIG BY DEFAULT?
+  modulePaths: ["<rootDir>/src"],
 
   // Activates notifications for test results
   // notify: false,

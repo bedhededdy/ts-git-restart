@@ -29,8 +29,31 @@
     "module": "NodeNext",                                /* Specify what module code is generated. */
      //"rootDir": "./src",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "NodeNext",                      /* Specify how TypeScript looks up a file from a given module specifier. */
-    //"baseUrl": ".",                                    /* Specify the base directory to resolve non-relative module names. */
-    //"paths": { "@/*": ["src/*"] },                     /* Specify a set of entries that re-map imports to additional lookup locations. */
+    // NOTE:
+    // WE CANNOT USE PATHS AND BASEURL LIKE THIS
+    // BECAUSE BASE URL WILL STILL END UP BEING
+    // . WHICH IS DIFFERENT IN EACH PACKAGE
+    // YOU WOULD HAVE TO REDEFINED THE RELATIVE PATHS IN EACH PACKAGE
+    // WE CAN'T ALSO JUST DEFINE THEM IN EACH PACKAGE
+    // BECAUSE TYPESCRIPT DOES NOT RESOLVE ALIASES
+    // TO RELATIVE PATHS
+    // SO THE EMITTED JAVASCRIPT IS STILL USING THE ALIASED PATH
+    // SO EITHER WE JUST USE RELATIVE PATHS AND DEAL WITH IT
+    // OR WE REDEFINE THE ALIASES IN EACH PACKAGE WITH THE RELATIVE PATH
+    // OR WE USE ANOTHER TOOL TO RESOLVE THE ALIASES
+    // LIKE BABEL OR SOME OTHER BUNDLER
+    // THERE ARE OTHER TOOLS THAT DO THIS THAT ARE NOT RELATED TO BUNDLING
+    // BUT THEN WE ARE TALKING ABOUT LEARNING A WHOLE OTHER BUILD TOOL
+    // LIKE TURBOREPO
+    // SO WE ARE BEST OFF JUST USING RELATIVE PATHS AND BASE URL
+    // WHICH DOES WORK WHEN SET TO "SRC" I.E. USING IMPORT "FOO"
+    // DOES KNOW THAT I REALLY MEAN SRC/FOO
+    // SINCE THE DIRECTORY STRUCTURE HERE IS SIMPLE, LET'S JUST DEAL WITH
+    // NOT HAVING ALIASES
+
+    // "baseUrl": ".",                                    /* Specify the base directory to resolve non-relative module names. */
+    // "paths": { "@core/*": ["core/src/*"], "@cli/*": ["cli/src/*"] },                     /* Specify a set of entries that re-map imports to additional lookup locations. */
+
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
     // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
