@@ -1,0 +1,30 @@
+{
+  "name": "tsgit-core",
+  "version": "1.0.0",
+  "description": "Core library for tsgit",
+  "files": [
+    "dist/**/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc --build --verbose tsconfig.build.json",
+    "build:watch": "tsc --watch",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:/bedhededdy/tsgit",
+    "directory": "core"
+  },
+  "author": "Edward Pinkston",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "tsgit-cli",
+  "version": "1.0.0",
+  "description": "CLI for tsgit",
+  "files": [
+    "dist/**/*"
+  ],
+  "bin": {
+    "tsgit": "./dist/main.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc --build --verbose tsconfig.build.json",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dev": "ts-node src/main.ts",
+    "start": "node dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github:/bedhededdy/tsgit",
+    "directory": "cli"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.33"
+  },
+  "dependencies": {
+    "tsgit-core": "^1.0.0",
+    "yargs": "^17.7.2"
+  },
+  "author": "Edward Pinkston",
+  "license": "Apache-2.0"
+}
