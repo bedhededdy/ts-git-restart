@@ -1,9 +1,2 @@
-import { ecp123 } from "./bar";
+export * from "repository";
 
-export default function foo(): string {
-  return "foo" + ecp123();
-}
-
-export function bar(): string {
-  return "bar";
-}
