@@ -11,6 +11,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc --build --verbose tsconfig.build.json",
+    "build:watch": "tsc --build --watch --verbose tsconfig.build.json",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write .",

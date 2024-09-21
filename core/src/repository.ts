@@ -1,5 +1,11 @@
 export class Repository {
-  public foo: number = 0;
+  private _tsgitDir: string;
 
-  constructor() {}
+  constructor(tsgitDir?: string) {
+    this._tsgitDir = tsgitDir ?? ".tsgit";
+  }
+
+  public get tsgitDir(): string {
+    return this._tsgitDir;
+  }
 }
