@@ -70,8 +70,8 @@ export enum CommandType {
 export default abstract class Command {
   protected _commandType: CommandType;
   protected _repository: Repository;
-  protected _args: string[]
-  
+  protected _args: string[];
+
   constructor(commandType: CommandType, repository: Repository, args: string[]) {
     this._commandType = commandType;
     this._repository = repository;
@@ -82,4 +82,3 @@ export default abstract class Command {
   public abstract exec(): number;
   public parseArgs(): void {}
 }
-

@@ -2,7 +2,7 @@
 import Command, { CommandType } from "command";
 import { Repository } from "tsgit-core";
 
-import InitCommand from "commands/init";
+import InitCommand from "./commands/init";
 
 export default class CommandFactory {
   public static createCommand(argv: string[]): Command | null {
@@ -14,9 +14,9 @@ export default class CommandFactory {
     switch (commandType) {
       case CommandType.Init:
         return new InitCommand(commandType, new Repository(), args);
+        return null;
       default:
         return null;
     }
   }
 }
-

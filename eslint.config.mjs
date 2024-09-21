@@ -26,6 +26,7 @@ export default [
       parserOptions: {
         project: true,
         tsConfigRootDir: __dirname,
+        sourceType: "module",
       },
 
     },
