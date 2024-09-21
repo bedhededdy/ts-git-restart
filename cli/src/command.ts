@@ -76,9 +76,8 @@ export default abstract class Command {
     this._commandType = commandType;
     this._repository = repository;
     this._args = args;
-    this.parseArgs();
   }
 
   public abstract exec(): number;
-  public parseArgs(): void {}
+  public abstract parseArgs(): void;
 }

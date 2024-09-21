@@ -4,13 +4,14 @@ import { Repository, findTsgitDir } from "tsgit-core";
 
 import InitCommand from "commands/init";
 import HashObjectCommand from "commands/hash-object";
+import CatFileCommand from "commands/cat-file";
 
 export default class CommandFactory {
   public static createCommand(argv: string[]): Command | null {
     // FIXME: THIS IS NOT PROD SUITABLE
     const commandIdx = argv[0].includes("node") ? 2 : 1;
     const commandType = argv[commandIdx] as CommandType;
-    const args = argv.slice(commandIdx + 1);
+    const args = argv.slice(commandIdx);
 
     const tsgitDir = findTsgitDir();
     if (!tsgitDir && commandType !== CommandType.Init) {
@@ -25,6 +26,8 @@ export default class CommandFactory {
         return new InitCommand(commandType, repository, args);
       case CommandType.HashObject:
         return new HashObjectCommand(commandType, repository, args);
+      case CommandType.CatFile:
+        return new CatFileCommand(commandType, repository, args);
       default:
         return null;
     }

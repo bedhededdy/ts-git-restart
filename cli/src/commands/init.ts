@@ -4,6 +4,7 @@ import { init } from "tsgit-core/commands";
 
 export default class InitCommand extends Command {
   public override exec(): number {
+    this.parseArgs();
     return init();
   }
 
