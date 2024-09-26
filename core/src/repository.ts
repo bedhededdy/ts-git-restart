@@ -3,15 +3,34 @@ import { createHash, mkdirIfNotExists, isDirAncestor } from "./lib";
 import fs from "node:fs";
 import zlib from "node:zlib";
 
+type GitConfig = {
+  name?: string;
+  email?: string;
+};
+
 export class Repository {
   private _tsgitDir: string;
+  private _config: GitConfig = {};
 
   constructor(tsgitDir: string) {
     this._tsgitDir = tsgitDir;
+
+    if (fs.existsSync(`${tsgitDir}/config`)) {
+      // TODO: Get config from here
+    }
+
+    // TODO: GET GLOBAL CONFIG
+
+    this._config.name = "Edward Pinkston";
+    this._config.email = "edward.pinkston@gmail.com";
   }
 
   public get tsgitDir(): string {
     return this._tsgitDir;
+  }
+
+  public get config(): GitConfig {
+    return this._config;
   }
 
   public matchHashPrefix(hashPrefix: string): string {
