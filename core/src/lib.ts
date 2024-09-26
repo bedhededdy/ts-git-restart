@@ -22,3 +22,9 @@ export function stripHeader(data: string): string {
   const headerEnd = data.indexOf("\0");
   return data.substring(headerEnd + 1);
 }
+
+export function isDirAncestor(potentialAncestor: string, dir: string): boolean {
+  // We will count dir == potentialAncestor as being an ancestor
+  if (!dir.startsWith(process.cwd())) dir = process.cwd + "/" + dir;
+  return dir.startsWith(potentialAncestor);
+}
