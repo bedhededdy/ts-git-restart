@@ -1,7 +1,6 @@
 import Command from "command";
 
 import { catFile, CatFileFlags } from "tsgit-core/commands";
-import { matchShortHash } from "tsgit-core";
 
 import yargs from "yargs";
 
@@ -32,7 +31,7 @@ export default class CatFileCommand extends Command {
       .parseSync();
 
     // FIXME: NEED TO CATCH POTENTIAL ERROR
-    this._objHash = matchShortHash(this._repository.tsgitDir, argv.hash as string);
+    this._objHash = this._repository.matchHashPrefix(argv.hash as string);
     this._flags = {
       prettyPrint: argv.pretty as boolean,
     };

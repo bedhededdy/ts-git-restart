@@ -1,6 +1,6 @@
 import { Repository } from "repository";
 
-import { readObj, stripHeader } from "../lib";
+import { stripHeader } from "../lib";
 
 import zlib from "node:zlib";
 
@@ -10,10 +10,11 @@ export type CatFileFlags = {
 
 export function catFile(repository: Repository, hash: string, flags?: CatFileFlags): number {
   try {
-    const objData: Buffer = readObj(repository.tsgitDir, hash);
+    const objData: Buffer = repository.readObj(hash);
     if (flags?.prettyPrint) {
       console.log(stripHeader(zlib.inflateSync(objData).toString()));
     } else {
+      // FIXME: THIS IS NOT HOW REAL GIT DOES CAT-FILE
       console.log(objData);
     }
   } catch (e: any) {

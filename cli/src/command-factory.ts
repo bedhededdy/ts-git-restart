@@ -5,13 +5,14 @@ import { Repository, findTsgitDir } from "tsgit-core";
 import InitCommand from "commands/init";
 import HashObjectCommand from "commands/hash-object";
 import CatFileCommand from "commands/cat-file";
+import WriteTreeCommand from "commands/write-tree";
+
+import { hideBin } from "yargs/helpers";
 
 export default class CommandFactory {
   public static createCommand(argv: string[]): Command | null {
-    // FIXME: THIS IS NOT PROD SUITABLE
-    const commandIdx = argv[0].includes("node") ? 2 : 1;
-    const commandType = argv[commandIdx] as CommandType;
-    const args = argv.slice(commandIdx);
+    const args = hideBin(argv);
+    const commandType = args[0] as CommandType;
 
     const tsgitDir = findTsgitDir();
     if (!tsgitDir && commandType !== CommandType.Init) {
@@ -28,6 +29,8 @@ export default class CommandFactory {
         return new HashObjectCommand(commandType, repository, args);
       case CommandType.CatFile:
         return new CatFileCommand(commandType, repository, args);
+      case CommandType.WriteTree:
+        return new WriteTreeCommand(commandType, repository, args);
       default:
         return null;
     }
