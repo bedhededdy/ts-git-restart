@@ -10,7 +10,7 @@ export function writeTree(repository: Repository, dirName: string): number {
 
   const treeHash = repository.writeTree(dirName);
   if (!treeHash) {
-    console.error(`fatal: could not write tree object`);
+    console.warn(`warning: directory does not contain any files`);
     return -1;
   }
 

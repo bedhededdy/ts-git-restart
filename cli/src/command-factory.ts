@@ -6,6 +6,7 @@ import InitCommand from "commands/init";
 import HashObjectCommand from "commands/hash-object";
 import CatFileCommand from "commands/cat-file";
 import WriteTreeCommand from "commands/write-tree";
+import ReadTreeCommand from "commands/read-tree";
 
 import { hideBin } from "yargs/helpers";
 
@@ -31,6 +32,8 @@ export default class CommandFactory {
         return new CatFileCommand(commandType, repository, args);
       case CommandType.WriteTree:
         return new WriteTreeCommand(commandType, repository, args);
+      case CommandType.ReadTree:
+        return new ReadTreeCommand(commandType, repository, args);
       default:
         return null;
     }

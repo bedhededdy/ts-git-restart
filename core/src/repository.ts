@@ -72,19 +72,21 @@ export class Repository {
   public writeTree(dir: string): string {
     if (!dir || !fs.existsSync(dir)) throw new Error(`fatal: cannot stat '${dir}': No such file or directory`);
     if (!fs.statSync(dir).isDirectory()) throw new Error(`fatal: not a directory: '${dir}'`);
-    if (isDirAncestor(this._tsgitDir, dir)) throw new Error(`fatal: '${dir}' is an ancestor of the tsgit directory`);
+    if (isDirAncestor(this._tsgitDir, dir)) return "";
 
     let treeObjNBytes = 0;
     let lines: string[] = [];
     const files: string[] = fs.readdirSync(dir);
+
+    if (files.length === 0) return "";
 
     for (const file of files) {
       // TODO: In real git we also need the ls -l info for the directory and file
       // FIXME: DON'T WANT TO SAVE EMPTY LINE AT END OF TREE OBJECT
       const filePath = `${dir}/${file}`;
       if (fs.statSync(filePath).isDirectory()) {
-        // FIXME: NEED TO HANDLE THE EXCEPTION THROWN WHEN YOU HIT A TSGIT DIRECTORY
         const hash = this.writeTree(filePath);
+        if (!hash) continue;
         const line = `tree ${hash} ${file}\n`;
         treeObjNBytes += line.length;
         lines.push(line);
@@ -102,9 +104,6 @@ export class Repository {
     const objFile = `${objDir}/${hash.substring(2)}`;
 
     mkdirIfNotExists(objDir);
-
-    // TODO: REMOVE ME
-    console.log(lines.join(""));
 
     const zlibData: Buffer = zlib.deflateSync(treeObj);
     fs.writeFileSync(objFile, zlibData);
