@@ -1,11 +1,8 @@
 import { Repository } from "repository";
 
-// import { mkdirIfNotExists } from "lib";
-import { mkdirIfNotExists, createHash } from "../lib"; // apparently it's trying to interpret lib as a module, at least with ts-node
-import fs from "node:fs";
+import { mkdirIfNotExists, createHash, compress } from "tsgit-utils";
 
-import crypto from "node:crypto";
-import zlib from "node:zlib";
+import fs from "node:fs";
 
 export type HashObjectFlags = {
   objType?: string;
@@ -29,7 +26,7 @@ export function hashObject(repository: Repository, fileToHash: string, flags?: H
 
     mkdirIfNotExists(objectDir);
 
-    const zlibData: Buffer = zlib.deflateSync(objData);
+    const zlibData: Buffer = compress(objData);
     fs.writeFileSync(objectFile, zlibData);
   }
 

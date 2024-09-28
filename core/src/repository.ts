@@ -1,7 +1,6 @@
-import { createHash, mkdirIfNotExists, isDirAncestor } from "./lib";
+import { createHash, mkdirIfNotExists, isDirAncestor, compress } from "tsgit-utils";
 
 import fs from "node:fs";
-import zlib from "node:zlib";
 
 type GitConfig = {
   name?: string;
@@ -82,7 +81,7 @@ export class Repository {
 
     mkdirIfNotExists(objectDir);
 
-    const zlibData: Buffer = zlib.deflateSync(objData);
+    const zlibData: Buffer = compress(objData);
     fs.writeFileSync(objectFile, zlibData);
 
     return hash;
@@ -124,7 +123,7 @@ export class Repository {
 
     mkdirIfNotExists(objDir);
 
-    const zlibData: Buffer = zlib.deflateSync(treeObj);
+    const zlibData: Buffer = compress(treeObj);
     fs.writeFileSync(objFile, zlibData);
 
     return hash;

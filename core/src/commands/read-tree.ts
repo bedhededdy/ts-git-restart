@@ -1,8 +1,6 @@
 import { Repository } from "repository";
 
-import { stripHeader } from "../lib";
-
-import zlib from "node:zlib";
+import { stripHeader, decompress } from "tsgit-utils";
 
 export function readTree(repository: Repository, hash: string) {
   hash = repository.matchHashPrefix(hash);
@@ -12,7 +10,7 @@ export function readTree(repository: Repository, hash: string) {
   }
 
   const objData: Buffer = repository.readObj(hash);
-  console.log(stripHeader(zlib.inflateSync(objData).toString()));
+  console.log(stripHeader(decompress(objData)));
 
   return 0;
 }

@@ -1,8 +1,6 @@
 import { Repository } from "repository";
 
-import { stripHeader } from "../lib";
-
-import zlib from "node:zlib";
+import { stripHeader, decompress } from "tsgit-utils";
 
 export type CatFileFlags = {
   prettyPrint?: boolean;
@@ -12,7 +10,7 @@ export function catFile(repository: Repository, hash: string, flags?: CatFileFla
   try {
     const objData: Buffer = repository.readObj(hash);
     if (flags?.prettyPrint) {
-      console.log(stripHeader(zlib.inflateSync(objData).toString()));
+      console.log(stripHeader(decompress(objData)));
     } else {
       // FIXME: THIS IS NOT HOW REAL GIT DOES CAT-FILE
       console.log(objData);

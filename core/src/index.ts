@@ -1,2 +1,2 @@
 export * from "./repository";
-export * from "./lib";
+export * from "./tsgit-utils";

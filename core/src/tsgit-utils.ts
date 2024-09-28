@@ -1,6 +1,7 @@
-import fs from "node:fs";
 import crypto from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
+import zlib from "node:zlib";
 
 export function mkdirIfNotExists(dirName: string): void {
   if (!fs.existsSync(dirName)) fs.mkdirSync(dirName);
@@ -31,4 +32,12 @@ export function isDirAncestor(potentialAncestor: string, dir: string): boolean {
   const resolvedAncestor = path.resolve(potentialAncestor);
   const resolvedDir = path.resolve(dir);
   return resolvedDir.startsWith(resolvedAncestor);
+}
+
+export function compress(data: string): Buffer {
+  return zlib.deflateSync(data);
+}
+
+export function decompress(data: Buffer): string {
+  return zlib.inflateSync(data).toString();
 }
