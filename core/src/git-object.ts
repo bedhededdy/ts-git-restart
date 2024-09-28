@@ -1,4 +1,5 @@
-import { Repository } from "./repository";
+import type { Repository } from "./repository";
+import { Result } from "./utils/lib";
 
 export enum GitObjectType {
   Blob = "blob",
@@ -39,5 +40,27 @@ export abstract class GitObject {
 
   public get repository(): Repository {
     return this._repository;
+  }
+
+  public static readObjHeader(objContent: string): Result<GitObjectHeader> {
+    const objContentSplit = objContent.split("\0");
+    if (objContentSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
+    const header = objContentSplit[0];
+
+    const headerSplit = header.split(" ");
+    if (headerSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
+    const [objType, objSize] = header.split(" ");
+
+    const validObjTypes = [GitObjectType.Blob, GitObjectType.Tree, GitObjectType.Commit];
+    if (!validObjTypes.includes(objType as GitObjectType))
+      return { success: false, error: new Error("Object type is invalid") };
+
+    return { success: true, value: { objType: objType as GitObjectType, objSize: parseInt(objSize) } };
+  }
+
+  public static readObjBody(objContent: string): Result<string> {
+    const objContentSplit = objContent.split("\0");
+    if (objContentSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
+    return { success: true, value: objContentSplit[1] };
   }
 }

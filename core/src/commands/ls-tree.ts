@@ -1,6 +1,5 @@
 import { Repository } from "../repository";
-
-import { stripHeader } from "../utils/lib";
+import { GitObject } from "../git-object";
 
 export function lsTree(repository: Repository, hash: string) {
   hash = repository.matchHashPrefix(hash);
@@ -10,11 +9,11 @@ export function lsTree(repository: Repository, hash: string) {
   }
 
   const tree = repository.readTree(hash);
-  if (!tree) {
+  if (!tree.success) {
     console.error(`fatal: Not a valid tree object name ${hash}`);
     return -1;
   }
 
-  console.log(stripHeader(tree.content));
+  console.log(GitObject.readObjBody(tree.value.content));
   return 0;
 }

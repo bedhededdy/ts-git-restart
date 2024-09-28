@@ -36,7 +36,7 @@ export class Repository {
     return this._config;
   }
 
-  public findGitDir(): string {
+  public static findGitDir(): string {
     let dir = process.cwd();
     const rootDir = path.parse(dir).root;
     while (dir !== rootDir) {
@@ -78,27 +78,6 @@ export class Repository {
     return [hashedObjDir, hashedObjFile];
   }
 
-  public readObjHeader(objContent: string): Result<GitObjectHeader> {
-    const objContentSplit = objContent.split("\0");
-    if (objContentSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
-    const header = objContentSplit[0];
-
-    const headerSplit = header.split(" ");
-    if (headerSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
-    const [objType, objSize] = header.split(" ");
-    const validObjTypes = [GitObjectType.Blob, GitObjectType.Tree, GitObjectType.Commit];
-    if (!validObjTypes.includes(objType as GitObjectType))
-      return { success: false, error: new Error("Object type is invalid") };
-
-    return { success: true, value: { objType: objType as GitObjectType, objSize: parseInt(objSize) } };
-  }
-
-  public readObjBody(objContent: string): Result<string> {
-    const objContentSplit = objContent.split("\0");
-    if (objContentSplit.length !== 2) return { success: false, error: new Error("Object header is invalid") };
-    return { success: true, value: objContentSplit[1] };
-  }
-
   public objExists(hash: string, checkValidity?: boolean): Result<boolean> {
     const [hashedObjDir, hashedObjFile]: string[] = this.breakHash(hash);
 
@@ -128,7 +107,7 @@ export class Repository {
     return { success: true, value: true };
   }
 
-  private readRawObj(hash: string, skipExistsCheck?: boolean): Result<Buffer> {
+  public readRawObj(hash: string, skipExistsCheck?: boolean): Result<Buffer> {
     if (!skipExistsCheck && !this.objExists(hash, skipExistsCheck))
       return { success: false, error: new Error("Object does not exist") };
     const [_hashedObjDir, hashedObjFile]: string[] = this.breakHash(hash);

@@ -15,11 +15,6 @@ export function createHash(data: string): string {
   return crypto.createHash("sha1").update(data).digest("hex");
 }
 
-export function stripHeader(data: string): string {
-  const headerEnd = data.indexOf("\0");
-  return data.substring(headerEnd + 1);
-}
-
 export function isDirAncestor(potentialAncestor: string, dir: string): boolean {
   // We will count dir == potentialAncestor as being an ancestor
   const resolvedAncestor = path.resolve(potentialAncestor);
