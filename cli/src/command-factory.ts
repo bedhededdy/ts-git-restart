@@ -7,6 +7,7 @@ import HashObjectCommand from "commands/hash-object";
 import CatFileCommand from "commands/cat-file";
 import MakeTreeCommand from "commands/mktree";
 import ListTreeCommand from "commands/ls-tree";
+import CommitCommand from "commands/commit";
 
 import { hideBin } from "yargs/helpers";
 
@@ -34,6 +35,8 @@ export default class CommandFactory {
         return new MakeTreeCommand(commandType, repository, args);
       case CommandType.ListTree:
         return new ListTreeCommand(commandType, repository, args);
+      case CommandType.Commit:
+        return new CommitCommand(commandType, repository, args);
       default:
         return null;
     }

@@ -1,9 +1,11 @@
 import fs from "node:fs";
+import path from "node:path";
 
 import { GitObject } from "git-object";
 import { Blob } from "blob";
 import { Tree } from "tree";
 import { createHash, mkdirIfNotExists, isDirAncestor, compress, decompress } from "tsgit-utils";
+import { time } from "node:console";
 
 type GitConfig = {
   name?: string;
@@ -92,16 +94,16 @@ export class Repository {
       const [objType, objHash, ..._rest] = line.split(" ");
       if (objType === "blob") {
         treeObjects.push(this.readBlob(objHash));
-      } else {
+      } else if (objType === "tree") {
         treeObjects.push(this.readTree(objHash));
       }
+      // For now I don't think we want to deal with commit objects
     }
 
     return new Tree(this, hash, data, treeObjects);
   }
 
-  public writeObject(file: string, objType?: string): string {
-    const data: Buffer = fs.readFileSync(file);
+  private writeObjectBuffer(data: Buffer, objType?: string): string {
     objType = objType ?? "blob";
     const objData = `${objType} ${data.length.toString()}\0${data.toString()}`;
     const hash = createHash(objData);
@@ -115,6 +117,10 @@ export class Repository {
     fs.writeFileSync(objectFile, zlibData);
 
     return hash;
+  }
+
+  public writeObject(file: string, objType?: string): string {
+    return this.writeObjectBuffer(fs.readFileSync(file), objType);
   }
 
   public writeTree(dir: string): string {
@@ -160,6 +166,28 @@ export class Repository {
   }
 
   public commit(message: string): string {
-    return "";
+    const hash = this.writeTree(path.dirname(this._tsgitDir));
+    if (!hash) throw new Error("fatal: cannot commit empty tree");
+
+    const unixTimestamp = Math.floor(Date.now() / 1000);
+    const timezoneOffsetMinutes = new Date().getTimezoneOffset();
+    const timezoneOffsetHours = Math.floor(timezoneOffsetMinutes / 60);
+    const timezoneOffsetMinutesRemainder = timezoneOffsetMinutes % 60;
+    let timezoneOffset = timezoneOffsetHours.toString().padStart(2, "0");
+    timezoneOffset += timezoneOffsetMinutesRemainder.toString().padStart(2, "0");
+    timezoneOffset = timezoneOffsetHours < 0 ? "-" : "+" + timezoneOffset;
+    const gitTimestamp = `${unixTimestamp} ${timezoneOffset}`;
+
+    const treeLine = `tree ${hash}`;
+    const parentLine = ""; // TODO: GET PARENT COMMIT
+    const authorLine = `author ${this._config.name} <${this._config.email}> ${gitTimestamp}`;
+    const committerLine = `committer ${this._config.name} <${this._config.email}> ${gitTimestamp}`;
+    const emptyLine = "";
+
+    const rawCommit = [treeLine, parentLine, authorLine, committerLine, emptyLine, message].join("\n");
+
+    fs.writeFileSync(`${this._tsgitDir}/COMMIT_EDITMSG`, message);
+
+    return this.writeObjectBuffer(Buffer.from(rawCommit), "commit");
   }
 }
