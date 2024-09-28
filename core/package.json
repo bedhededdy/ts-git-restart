@@ -20,7 +20,9 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "build": "tsc --build --verbose tsconfig.build.json",
+    "build:watch": "tsc --build --verbose --watch tsconfig.build.json"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-import Command from "command";
+import Command from "../command";
 
 import { init } from "tsgit-core/commands";
 

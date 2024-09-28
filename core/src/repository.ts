@@ -1,11 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { GitObject } from "git-object";
-import { Blob } from "blob";
-import { Tree } from "tree";
-import { createHash, mkdirIfNotExists, isDirAncestor, compress, decompress } from "tsgit-utils";
-import { time } from "node:console";
+import { GitObject } from "./git-object";
+import { Blob } from "./blob";
+import { Tree } from "./tree";
+import { createHash, mkdirIfNotExists, isDirAncestor, compress, decompress } from "./tsgit-utils";
 
 type GitConfig = {
   name?: string;

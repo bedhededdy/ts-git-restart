@@ -1,6 +1,6 @@
 import { commit, CommitFlags } from "tsgit-core/commands";
 
-import Command from "command";
+import Command from "../command";
 
 import yargs from "yargs";
 

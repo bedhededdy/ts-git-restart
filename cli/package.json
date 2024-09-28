@@ -10,12 +10,12 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "concurrently \"tsc --build tsconfig.build.json\" \"tsc-alias --project tsconfig.build.json\" \"tsc-alias --project ../core/tsconfig.build.json\"",
-    "build:watch": "concurrently \"tsc --build tsconfig.build.json -w\" \"tsc-alias --project tsconfig.build.json -w\" \"tsc-alias --project ../core/tsconfig.build.json\"",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "build": "tsc --build --verbose tsconfig.build.json",
+    "build:watch": "tsc --build --verbose --watch tsconfig.build.json",
     "dev": "ts-node src/main.ts",
     "start": "node dist/main.js"
   },

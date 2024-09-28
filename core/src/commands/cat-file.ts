@@ -1,7 +1,7 @@
-import { Repository } from "repository";
+import { Repository } from "../repository";
 
-import { GitObjectType } from "git-object";
-import { stripHeader } from "tsgit-utils";
+import { GitObjectType } from "../git-object";
+import { stripHeader } from "../tsgit-utils";
 
 export type CatFileFlags = {
   prettyPrint?: boolean;

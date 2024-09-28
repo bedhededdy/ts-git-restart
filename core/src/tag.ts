@@ -1,5 +1,5 @@
-import { Commit } from "commit";
-import { GitObject, GitObjectType } from "git-object";
+import { Commit } from "./commit";
+import { GitObject, GitObjectType } from "./git-object";
 
 export class Tag extends GitObject {
   private _name: string;

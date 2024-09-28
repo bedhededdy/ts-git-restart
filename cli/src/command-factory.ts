@@ -1,13 +1,13 @@
 // FIXME: I THINK I ONLY NEED A TYPE IMPORT HERE
-import Command, { CommandType } from "command";
+import Command, { CommandType } from "./command";
 import { Repository, findTsgitDir } from "tsgit-core";
 
-import InitCommand from "commands/init";
-import HashObjectCommand from "commands/hash-object";
-import CatFileCommand from "commands/cat-file";
-import MakeTreeCommand from "commands/mktree";
-import ListTreeCommand from "commands/ls-tree";
-import CommitCommand from "commands/commit";
+import InitCommand from "./commands/init";
+import HashObjectCommand from "./commands/hash-object";
+import CatFileCommand from "./commands/cat-file";
+import MakeTreeCommand from "./commands/mktree";
+import ListTreeCommand from "./commands/ls-tree";
+import CommitCommand from "./commands/commit";
 
 import { hideBin } from "yargs/helpers";
 

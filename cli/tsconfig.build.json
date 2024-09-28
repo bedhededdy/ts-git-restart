@@ -10,7 +10,6 @@
 
       /* Modules */
       "rootDir": "./src",
-      "baseUrl": "./src",
 
       /* JavaScript Support */
 

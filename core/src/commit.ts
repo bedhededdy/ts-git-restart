@@ -1,7 +1,7 @@
-import { Tree } from "tree";
+import { Tree } from "./tree";
 
-import { GitObject } from "git-object";
-import { Repository } from "repository";
+import { GitObject } from "./git-object";
+import { Repository } from "./repository";
 
 export class Commit extends Tree {
   private _parentCommit: Commit | null;

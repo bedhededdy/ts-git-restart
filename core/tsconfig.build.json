@@ -9,7 +9,6 @@
       /* Language and Environment */
 
       /* Modules */
-      "baseUrl": "./src",
       "rootDir": "./src",
 
       /* JavaScript Support */

@@ -1,6 +1,6 @@
-import { Repository } from "repository";
+import { Repository } from "../repository";
 
-import { mkdirIfNotExists, createHash, compress } from "tsgit-utils";
+import { mkdirIfNotExists, createHash, compress } from "../tsgit-utils";
 
 import fs from "node:fs";
 

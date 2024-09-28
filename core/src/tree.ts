@@ -1,5 +1,5 @@
-import { GitObject, GitObjectType } from "git-object";
-import { Repository } from "repository";
+import { GitObject, GitObjectType } from "./git-object";
+import { Repository } from "./repository";
 
 export class Tree extends GitObject {
   private _files: GitObject[] = [];

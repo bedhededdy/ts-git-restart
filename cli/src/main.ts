@@ -1,4 +1,4 @@
-import CommandFactory from "command-factory";
+import CommandFactory from "./command-factory";
 
 function main() {
   const command = CommandFactory.createCommand(process.argv);
