@@ -16,26 +16,49 @@
                 "<node_internals>/**",
                 "node_modules/**"
             ],
-            "args": ["${input:cliArgs}"],
+            "args": ["${input:arg1}", "${input:arg2}", "${input:arg3}", "${input:arg4}", "${input:arg5}"],
             "cwd": "${workspaceFolder}/cli",
             "outFiles": [
-                "${workspaceFolder}/cli/dist/**/*.js",
-                "${workspaceFolder}/core/dist/**/*.js"
+                "${workspaceFolder}/**/dist/**/*.js"
             ],
             "sourceMaps": true,
             "resolveSourceMapLocations": [
-                "${workspaceFolder}/cli/src/**/*.ts",
-                "${workspaceFolder}/core/src/**/*.ts",
-                "!**/node_modules/**"
+                "!**/node_modules/**",
+                "${workspaceFolder}/**/dist/**/*.js",
+                "${workspaceFolder}/**/src/**/*.ts",
             ],
         }
     ],
     "inputs": [
-    {
-      "id": "cliArgs",
-      "type": "promptString",
-      "description": "Enter CLI arguments",
-      "default": ""
-    }
-  ],
+        {
+            "id": "arg1",
+            "type": "promptString",
+            "description": "Enter CLI argument 1",
+            "default": ""
+        },
+        {
+            "id": "arg2",
+            "type": "promptString",
+            "description": "Enter CLI argument 2",
+            "default": ""
+        },
+        {
+            "id": "arg3",
+            "type": "promptString",
+            "description": "Enter CLI argument 3",
+            "default": ""
+        },
+        {
+            "id": "arg4",
+            "type": "promptString",
+            "description": "Enter CLI argument 4",
+            "default": ""
+        },
+        {
+            "id": "arg5",
+            "type": "promptString",
+            "description": "Enter CLI argument 5",
+            "default": ""
+        },
+    ],
 }
