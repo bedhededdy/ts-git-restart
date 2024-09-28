@@ -5,8 +5,8 @@ import { Repository, findTsgitDir } from "tsgit-core";
 import InitCommand from "commands/init";
 import HashObjectCommand from "commands/hash-object";
 import CatFileCommand from "commands/cat-file";
-import WriteTreeCommand from "commands/write-tree";
-import ReadTreeCommand from "commands/read-tree";
+import MakeTreeCommand from "commands/mktree";
+import ListTreeCommand from "commands/ls-tree";
 
 import { hideBin } from "yargs/helpers";
 
@@ -30,10 +30,10 @@ export default class CommandFactory {
         return new HashObjectCommand(commandType, repository, args);
       case CommandType.CatFile:
         return new CatFileCommand(commandType, repository, args);
-      case CommandType.WriteTree:
-        return new WriteTreeCommand(commandType, repository, args);
-      case CommandType.ReadTree:
-        return new ReadTreeCommand(commandType, repository, args);
+      case CommandType.MakeTree:
+        return new MakeTreeCommand(commandType, repository, args);
+      case CommandType.ListTree:
+        return new ListTreeCommand(commandType, repository, args);
       default:
         return null;
     }

@@ -1,6 +1,9 @@
-import { createHash, mkdirIfNotExists, isDirAncestor, compress } from "tsgit-utils";
-
 import fs from "node:fs";
+
+import { GitObject } from "git-object";
+import { Blob } from "blob";
+import { Tree } from "tree";
+import { createHash, mkdirIfNotExists, isDirAncestor, compress, decompress } from "tsgit-utils";
 
 type GitConfig = {
   name?: string;
@@ -63,11 +66,38 @@ export class Repository {
     return fs.existsSync(hashedObjDir) && fs.existsSync(hashedObjFile);
   }
 
-  public readObj(hash: string, skipExistsCheck?: boolean): Buffer {
+  public readObjStr(hash: string, skipExistsCheck?: boolean): string {
     if (!skipExistsCheck && !this.objExists(hash)) throw new Error(`fatal: Not a valid object name ${hash}`);
     const hashedObjDir = `${this._tsgitDir}/objects/${hash.substring(0, 2)}`;
     const hashedObjFile = `${hashedObjDir}/${hash.substring(2)}`;
-    return fs.readFileSync(hashedObjFile);
+    return decompress(fs.readFileSync(hashedObjFile));
+  }
+
+  public readBlob(hash: string, skipExistsCheck?: boolean): Blob {
+    const [header, data] = this.readObjStr(hash, skipExistsCheck).split("\0");
+    const [objType, _objSize] = header.split(" ");
+    if (objType !== "blob") throw new Error(`fatal: Not a blob object ${hash}`);
+    return new Blob(this, hash, data);
+  }
+
+  public readTree(hash: string, skipExistsCheck?: boolean): Tree {
+    const [header, data] = this.readObjStr(hash, skipExistsCheck).split("\0");
+    const [objType, _objSize] = header.split(" ");
+    if (objType !== "tree") throw new Error(`fatal: Not a tree object ${hash}`);
+
+    const treeObjects: GitObject[] = [];
+
+    for (const line of data.split("\n")) {
+      if (!line) continue;
+      const [objType, objHash, ..._rest] = line.split(" ");
+      if (objType === "blob") {
+        treeObjects.push(this.readBlob(objHash));
+      } else {
+        treeObjects.push(this.readTree(objHash));
+      }
+    }
+
+    return new Tree(this, hash, data, treeObjects);
   }
 
   public writeObject(file: string, objType?: string): string {

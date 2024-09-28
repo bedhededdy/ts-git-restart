@@ -1,22 +1,22 @@
 import Command from "command";
 
-import { writeTree } from "tsgit-core/commands";
+import { mktree } from "tsgit-core/commands";
 
 import yargs from "yargs";
 
-export default class WriteTree extends Command {
+export default class MakeTreeCommand extends Command {
   private _treeDir: string = "";
 
   public override exec(): number {
     this.parseArgs();
-    return writeTree(this._repository, this._treeDir);
+    return mktree(this._repository, this._treeDir);
   }
 
   public override parseArgs(): void {
     const argv = yargs(this._args)
-      .usage("Usage: tsgit write-tree <dir> [options]")
+      .usage("Usage: tsgit mktree <dir> [options]")
       .command(
-        "write-tree <dir>",
+        "mktree <dir>",
         "Construct a tree object (recursively writing nested trees and objects), store it in the database, and output the hash",
         (yargs) => {
           return yargs.positional("dir", {

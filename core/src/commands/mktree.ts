@@ -2,7 +2,7 @@ import { Repository } from "repository";
 
 import fs from "node:fs";
 
-export function writeTree(repository: Repository, dirName: string): number {
+export function mktree(repository: Repository, dirName: string): number {
   if (!dirName || !fs.existsSync(dirName)) {
     console.error(`fatal: cannot stat '${dirName}': No such file or directory`);
     return -1;

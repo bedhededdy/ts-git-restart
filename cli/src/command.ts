@@ -55,6 +55,7 @@ export enum CommandType {
   ForEachRef = "for-each-ref",
   HashObject = "hash-object",
   ListFiles = "ls-files",
+  MakeTree = "mktree",
   ListTree = "ls-tree",
   MergeBase = "merge-base",
   ReadTree = "read-tree",

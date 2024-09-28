@@ -8,12 +8,12 @@ export type CatFileFlags = {
 
 export function catFile(repository: Repository, hash: string, flags?: CatFileFlags): number {
   try {
-    const objData: Buffer = repository.readObj(hash);
     if (flags?.prettyPrint) {
-      console.log(stripHeader(decompress(objData)));
+      // FIXME: NEED TO HANDLE OTHER OBJECT TYPES
+      console.log(stripHeader(repository.readBlob(hash).content));
     } else {
       // FIXME: THIS IS NOT HOW REAL GIT DOES CAT-FILE
-      console.log(objData);
+      // console.log(objData);
     }
   } catch (e: any) {
     // FIXME: NEED TO TYPE E AS ERROR

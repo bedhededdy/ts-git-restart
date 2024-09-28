@@ -9,8 +9,8 @@ export function readTree(repository: Repository, hash: string) {
     return -1;
   }
 
-  const objData: Buffer = repository.readObj(hash);
-  console.log(stripHeader(decompress(objData)));
+  // FIXME: WE ARE DOING A RECURSE HERE FOR NO REASON
+  console.log(stripHeader(repository.readTree(hash).content));
 
   return 0;
 }
