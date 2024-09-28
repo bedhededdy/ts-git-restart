@@ -7,6 +7,11 @@ export enum GitObjectType {
   Tag = "tag",
 }
 
+export type GitObjectHeader = {
+  objType: GitObjectType;
+  objSize: number;
+};
+
 export abstract class GitObject {
   private _hash: string;
   private _content: string;

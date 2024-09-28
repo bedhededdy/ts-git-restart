@@ -8,11 +8,12 @@ import yargs from "yargs";
 
 export default class CatFileCommand extends Command {
   private _objHash = "";
+  private _objType: GitObjectType | undefined;
   private _flags: CatFileFlags = {};
 
   public override exec(): number {
     this.parseArgs();
-    return catFile(this._repository, this._objHash, this._flags);
+    return catFile(this._repository, this._objHash, this._objType, this._flags);
   }
 
   public override parseArgs(): void {

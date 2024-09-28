@@ -1,4 +1,4 @@
-export * from "./tsgit-utils";
+export * from "./utils/lib";
 export * from "./repository";
 export * from "./git-object";
 export * from "./blob";

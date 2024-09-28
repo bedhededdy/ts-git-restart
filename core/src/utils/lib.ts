@@ -3,19 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 
-export function mkdirIfNotExists(dirName: string): void {
-  if (!fs.existsSync(dirName)) fs.mkdirSync(dirName);
-}
+// TODO: CREATE A BUNCH OF WRAPPERS FOR FS FUNCTIONSJJ
 
-export function findTsgitDir(): string {
-  let dir = process.cwd();
-  const rootDir = path.parse(dir).root;
-  while (dir !== rootDir) {
-    const tsgitDir = path.join(dir, ".tsgit");
-    if (fs.existsSync(tsgitDir)) return tsgitDir;
-    dir = path.dirname(dir); // Move up one directory
-  }
-  return "";
+export type Result<T> = { success: true; value: T } | { success: false; error: Error };
+
+export function mkdirIfNotExists(dir: string, recursive?: boolean): void {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive });
 }
 
 export function createHash(data: string): string {

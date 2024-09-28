@@ -1,6 +1,6 @@
 // FIXME: I THINK I ONLY NEED A TYPE IMPORT HERE
 import Command, { CommandType } from "./command";
-import { Repository, findTsgitDir } from "tsgit-core";
+import { Repository } from "tsgit-core";
 
 import InitCommand from "./commands/init";
 import HashObjectCommand from "./commands/hash-object";
@@ -16,13 +16,13 @@ export default class CommandFactory {
     const args = hideBin(argv);
     const commandType = args[0] as CommandType;
 
-    const tsgitDir = findTsgitDir();
-    if (!tsgitDir && commandType !== CommandType.Init) {
+    const gitDir = Repository.findGitDir();
+    if (!gitDir && commandType !== CommandType.Init) {
       console.error("fatal: not a tsgit repository (or any of the parent directories): .tsgit");
       return null;
     }
 
-    const repository = new Repository(tsgitDir);
+    const repository = new Repository(gitDir);
 
     switch (commandType) {
       case CommandType.Init:

@@ -1,6 +1,6 @@
 import { Repository } from "../repository";
 
-import { mkdirIfNotExists, createHash, compress } from "../tsgit-utils";
+import { mkdirIfNotExists, createHash, compress } from "../utils/lib";
 
 import fs from "node:fs";
 
@@ -21,7 +21,7 @@ export function hashObject(repository: Repository, fileToHash: string, flags?: H
   const hash: string = createHash(objData);
 
   if (flags?.write) {
-    const objectDir = `${repository.tsgitDir}/objects/${hash.substring(0, 2)}`;
+    const objectDir = `${repository.gitDir}/objects/${hash.substring(0, 2)}`;
     const objectFile = `${objectDir}/${hash.substring(2)}`;
 
     mkdirIfNotExists(objectDir);

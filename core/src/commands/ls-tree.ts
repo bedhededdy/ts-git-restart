@@ -1,6 +1,6 @@
 import { Repository } from "../repository";
 
-import { stripHeader } from "../tsgit-utils";
+import { stripHeader } from "../utils/lib";
 
 export function lsTree(repository: Repository, hash: string) {
   hash = repository.matchHashPrefix(hash);
